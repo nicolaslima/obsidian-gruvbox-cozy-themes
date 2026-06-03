@@ -94,13 +94,11 @@ gruvbox-cozy/
 │   └── gruvbox-cozy-hard/
 ├── preview/                 # interactive HTML demo of the theme
 ├── docs/                    # installation, customization, palette, screenshots
-├── art/                     # 🍁 the maple leaf as ASCII text (easter egg)
+├── art/                     # 🍁 the maple leaf as ASCII text
 ├── CHANGELOG.md
 ├── LICENSE
 └── README.md
 ```
-
-> 🍁 *Easter egg:* the sidebar maple leaf also lives as ASCII art in [`art/maple-leaf.txt`](art/maple-leaf.txt) — free to reuse anywhere.
 
 ## 🙏 Credits
 
