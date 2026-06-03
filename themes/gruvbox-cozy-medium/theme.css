@@ -1,0 +1,510 @@
+/* ============================================================
+   GRUVBOX COZY MEDIUM  ·  a retro-groove theme for Obsidian
+   Palette by Pavel Pertsev (morhetz/gruvbox)
+   ============================================================ */
+
+/* @settings
+
+name: Gruvbox Cozy Medium
+id: gruvbox-cozy-medium
+settings:
+    -
+        id: gruvbox-accent
+        title: Accent color
+        description: Links, cursor, buttons and active states.
+        type: class-select
+        allowEmpty: false
+        default: gruvbox-accent-orange
+        options:
+            -
+                label: Orange
+                value: gruvbox-accent-orange
+            -
+                label: Yellow
+                value: gruvbox-accent-yellow
+            -
+                label: Aqua
+                value: gruvbox-accent-aqua
+            -
+                label: Blue
+                value: gruvbox-accent-blue
+            -
+                label: Purple
+                value: gruvbox-accent-purple
+            -
+                label: Green
+                value: gruvbox-accent-green
+            -
+                label: Red
+                value: gruvbox-accent-red
+    -
+        id: gruvbox-heading-colors
+        title: Colored headings
+        description: Tint H1–H6 with the palette, Gruvbox-style.
+        type: class-toggle
+        default: true
+        addCommand: false
+    -
+        id: gruvbox-reading-font
+        title: Reading font
+        type: class-select
+        allowEmpty: false
+        default: gruvbox-font-sans
+        options:
+            -
+                label: Sans-serif
+                value: gruvbox-font-sans
+            -
+                label: Serif
+                value: gruvbox-font-serif
+            -
+                label: Monospace
+                value: gruvbox-font-mono
+    -
+        id: gruvbox-italic-emphasis
+        title: Italic emphasis (Vim-style)
+        type: class-toggle
+        default: true
+        addCommand: false
+    -
+        id: gruvbox-leaf
+        title: Sidebar maple leaf
+        description: A subtle pixel-art watermark at the bottom of the file explorer.
+        type: class-toggle
+        default: true
+        addCommand: false
+    -
+        id: gruvbox-leaf-opacity
+        title: Maple leaf opacity
+        type: variable-number-slider
+        default: 0.03
+        min: 0
+        max: 0.25
+        step: 0.005
+        format: ''
+    -
+        id: gruvbox-dots
+        title: Dotted note background
+        description: A subtle dot grid behind your notes, like dot-grid paper.
+        type: class-toggle
+        default: true
+        addCommand: false
+    -
+        id: gruvbox-dot-strength
+        title: Dot grid strength
+        type: variable-number-slider
+        default: 5
+        min: 0
+        max: 14
+        step: 1
+        format: '%'
+    -
+        id: gruvbox-tasks
+        title: Colored task states
+        description: Color & label custom checkbox states (/ ! ? > -) used by the Tasks plugin.
+        type: class-toggle
+        default: true
+        addCommand: false
+
+*/
+
+/* ------------------------------------------------------------
+   FONT STACKS
+   ------------------------------------------------------------ */
+body {
+	--font-sans-stack: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+	--font-serif-stack: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Charter,
+		Georgia, "Source Serif Pro", serif;
+	--font-mono-stack: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code",
+		ui-monospace, Menlo, Consolas, monospace;
+
+	--font-text-theme: var(--font-sans-stack);
+	--font-interface-theme: var(--font-sans-stack);
+	--font-monospace-theme: var(--font-mono-stack);
+}
+body.gruvbox-font-serif { --font-text-theme: var(--font-serif-stack); }
+body.gruvbox-font-mono  { --font-text-theme: var(--font-mono-stack); }
+
+/* ============================================================
+   DARK MODE  ·  fixed = MEDIUM contrast
+   ============================================================ */
+.theme-dark {
+	/* gruvbox dark scale */
+	--gb-bg0-h:  #1d2021;   /* dark0_hard  */
+	--gb-bg0:    #282828;   /* dark0       */
+	--gb-bg0-s:  #32302f;   /* dark0_soft  */
+	--gb-bg1:    #3c3836;   /* dark1       */
+	--gb-bg2:    #504945;   /* dark2       */
+	--gb-bg3:    #665c54;   /* dark3       */
+	--gb-bg4:    #7c6f64;   /* dark4       */
+	--gb-gray:   #928374;
+	--gb-fg4:    #a89984;   /* light4 */
+	--gb-fg3:    #bdae93;   /* light3 */
+	--gb-fg2:    #d5c4a1;   /* light2 */
+	--gb-fg1:    #ebdbb2;   /* light1  · text */
+	--gb-fg0:    #fbf1c7;   /* light0  · bright text */
+
+	/* bright accents */
+	--gb-red:    #fb4934;
+	--gb-green:  #b8bb26;
+	--gb-yellow: #fabd2f;
+	--gb-blue:   #83a598;
+	--gb-purple: #d3869b;
+	--gb-aqua:   #8ec07c;
+	--gb-orange: #fe8019;
+
+	/* fixed background tone — MEDIUM */
+	--gb-bg:        #282828;
+	--gb-bg-alt:    #1d2021;
+	--gb-bg-raised: #3c3836;
+
+	color-scheme: dark;
+}
+
+/* ============================================================
+   LIGHT MODE  ·  cream "retro groove"
+   ============================================================ */
+.theme-light {
+	--gb-bg0-h:  #f9f5d7;   /* light0_hard */
+	--gb-bg0:    #fbf1c7;   /* light0      */
+	--gb-bg0-s:  #f2e5bc;   /* light0_soft */
+	--gb-bg1:    #ebdbb2;   /* light1      */
+	--gb-bg2:    #d5c4a1;   /* light2      */
+	--gb-bg3:    #bdae93;   /* light3      */
+	--gb-bg4:    #a89984;   /* light4      */
+	--gb-gray:   #7c6f64;
+	--gb-fg4:    #7c6f64;
+	--gb-fg3:    #665c54;
+	--gb-fg2:    #504945;
+	--gb-fg1:    #3c3836;   /* text */
+	--gb-fg0:    #282828;   /* bright text */
+
+	/* faded/neutral accents read better on cream */
+	--gb-red:    #cc241d;
+	--gb-green:  #98971a;
+	--gb-yellow: #d79921;
+	--gb-blue:   #458588;
+	--gb-purple: #b16286;
+	--gb-aqua:   #689d6a;
+	--gb-orange: #d65d0e;
+
+	--gb-bg:        #fbf1c7;
+	--gb-bg-alt:    #f9f5d7;
+	--gb-bg-raised: #ebdbb2;
+
+	color-scheme: light;
+}
+
+/* ------------------------------------------------------------
+   ACCENT SELECTION  (default orange)
+   Each accent sets both the flat color (--gb-accent) AND the
+   --accent-h/s/l triplet so Obsidian's own derived elements
+   (settings toggles, focus rings, internal hovers) stay on-brand.
+   ------------------------------------------------------------ */
+body                       { --gb-accent: var(--gb-orange); --accent-h: 24;  --accent-s: 99%; --accent-l: 55%; }
+body.gruvbox-accent-orange { --gb-accent: var(--gb-orange); --accent-h: 24;  --accent-s: 99%; --accent-l: 55%; }
+body.gruvbox-accent-yellow { --gb-accent: var(--gb-yellow); --accent-h: 42;  --accent-s: 95%; --accent-l: 58%; }
+body.gruvbox-accent-aqua   { --gb-accent: var(--gb-aqua);   --accent-h: 101; --accent-s: 34%; --accent-l: 62%; }
+body.gruvbox-accent-blue   { --gb-accent: var(--gb-blue);   --accent-h: 156; --accent-s: 16%; --accent-l: 58%; }
+body.gruvbox-accent-purple { --gb-accent: var(--gb-purple); --accent-h: 342; --accent-s: 44%; --accent-l: 68%; }
+body.gruvbox-accent-green  { --gb-accent: var(--gb-green);  --accent-h: 61;  --accent-s: 66%; --accent-l: 44%; }
+body.gruvbox-accent-red    { --gb-accent: var(--gb-red);    --accent-h: 6;   --accent-s: 96%; --accent-l: 59%; }
+/* light mode uses the faded/neutral accents — nudge lightness down */
+body.theme-light { --accent-l: 38%; }
+
+/* ============================================================
+   MAP GRUVBOX → OBSIDIAN CORE VARIABLES
+   ============================================================ */
+body {
+	/* base greyscale scale */
+	--color-base-00: var(--gb-bg);
+	--color-base-05: var(--gb-bg-alt);
+	--color-base-10: var(--gb-bg-raised);
+	--color-base-20: var(--gb-bg2);
+	--color-base-25: var(--gb-bg2);
+	--color-base-30: var(--gb-bg3);
+	--color-base-35: var(--gb-bg4);
+	--color-base-40: var(--gb-gray);
+	--color-base-50: var(--gb-fg4);
+	--color-base-60: var(--gb-fg3);
+	--color-base-70: var(--gb-fg2);
+	--color-base-100: var(--gb-fg1);
+
+	/* named palette */
+	--color-red: var(--gb-red);
+	--color-orange: var(--gb-orange);
+	--color-yellow: var(--gb-yellow);
+	--color-green: var(--gb-green);
+	--color-cyan: var(--gb-aqua);
+	--color-blue: var(--gb-blue);
+	--color-purple: var(--gb-purple);
+	--color-pink: var(--gb-purple);
+
+	/* fonts */
+	--font-text: var(--font-text-theme);
+	--font-interface: var(--font-interface-theme);
+	--font-monospace: var(--font-monospace-theme);
+	--font-text-size: 17px;
+	--line-height-normal: 1.7;
+
+	/* backgrounds */
+	--background-primary: var(--gb-bg);
+	--background-primary-alt: var(--gb-bg-raised);
+	--background-secondary: var(--gb-bg-alt);
+	--background-secondary-alt: var(--gb-bg-raised);
+	--background-modifier-border: color-mix(in srgb, var(--gb-bg2) 70%, transparent);
+	--background-modifier-border-hover: var(--gb-bg3);
+	--background-modifier-border-focus: var(--gb-accent);
+	--background-modifier-hover: color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+	--background-modifier-active-hover: color-mix(in srgb, var(--gb-accent) 22%, transparent);
+	--background-modifier-form-field: var(--gb-bg-alt);
+
+	/* text */
+	--text-normal: var(--gb-fg1);
+	--text-muted: var(--gb-fg4);
+	--text-faint: var(--gb-gray);
+	--text-on-accent: var(--gb-bg);
+	--text-accent: var(--gb-accent);
+	--text-accent-hover: color-mix(in srgb, var(--gb-accent) 80%, #fff);
+	--text-selection: color-mix(in srgb, var(--gb-accent) 26%, transparent);
+	--text-highlight-bg: color-mix(in srgb, var(--gb-yellow) 35%, transparent);
+
+	/* interactive */
+	--interactive-normal: var(--gb-bg-raised);
+	--interactive-hover: var(--gb-bg2);
+	--interactive-accent: var(--gb-accent);
+	--interactive-accent-hover: color-mix(in srgb, var(--gb-accent) 82%, #fff);
+	/* proper "h, s, l" triplet for Obsidian's hsla(var(--interactive-accent-hsl), a) usages */
+	--interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+
+	/* status / feedback */
+	--background-modifier-error: color-mix(in srgb, var(--gb-red) 30%, transparent);
+	--background-modifier-error-hover: color-mix(in srgb, var(--gb-red) 42%, transparent);
+	--background-modifier-success: color-mix(in srgb, var(--gb-green) 30%, transparent);
+	--text-error: var(--gb-red);
+	--text-success: var(--gb-green);
+	--text-warning: var(--gb-orange);
+}
+
+/* keep the cursor/caret on-brand */
+.markdown-source-view.mod-cm6 .cm-cursor-primary,
+.cm-cursorLayer .cm-cursor { border-left-color: var(--gb-accent) !important; }
+
+/* ============================================================
+   HEADINGS  ·  colored by level (Gruvbox signature)
+   ============================================================ */
+body {
+	--h1-weight: 800;
+	--h2-weight: 700;
+	--h3-weight: 700;
+	--h1-color: var(--gb-fg0);
+	--h2-color: var(--gb-fg0);
+	--h3-color: var(--gb-fg0);
+	--h4-color: var(--gb-fg0);
+	--h5-color: var(--gb-fg0);
+	--h6-color: var(--gb-fg0);
+}
+body.gruvbox-heading-colors {
+	--h1-color: var(--gb-red);
+	--h2-color: var(--gb-orange);
+	--h3-color: var(--gb-yellow);
+	--h4-color: var(--gb-green);
+	--h5-color: var(--gb-aqua);
+	--h6-color: var(--gb-blue);
+}
+
+/* ============================================================
+   MARKDOWN ELEMENTS
+   ============================================================ */
+body {
+	--bold-color: var(--gb-fg0);
+	--bold-weight: 700;
+	--italic-color: inherit;
+	--link-color: var(--gb-accent);
+	--link-color-hover: var(--text-accent-hover);
+	--link-decoration: underline;
+	--link-decoration-thickness: 1px;
+
+	--hr-color: var(--gb-bg2);
+	--list-marker-color: var(--gb-accent);
+	--blockquote-border-color: var(--gb-accent);
+	--blockquote-color: var(--gb-fg3);
+
+	/* inline + block code */
+	--code-background: var(--gb-bg-alt);
+	--code-normal: var(--gb-fg2);
+	--code-comment: var(--gb-gray);
+	--code-function: var(--gb-aqua);
+	--code-keyword: var(--gb-red);
+	--code-string: var(--gb-green);
+	--code-property: var(--gb-blue);
+	--code-tag: var(--gb-yellow);
+	--code-value: var(--gb-purple);
+	--code-operator: var(--gb-orange);
+	--code-size: 0.9em;
+	--code-radius: 8px;
+
+	/* tags */
+	--tag-color: var(--gb-aqua);
+	--tag-background: color-mix(in srgb, var(--gb-aqua) 16%, transparent);
+	--tag-background-hover: color-mix(in srgb, var(--gb-aqua) 26%, transparent);
+
+	/* checkboxes */
+	--checkbox-color: var(--gb-accent);
+	--checkbox-color-hover: var(--text-accent-hover);
+	--checkbox-marker-color: var(--gb-bg);
+	--checklist-done-color: var(--gb-gray);
+
+	/* tables */
+	--table-header-background: var(--gb-bg-alt);
+	--table-row-alt-background: color-mix(in srgb, var(--gb-bg2) 22%, transparent);
+	--table-border-color: var(--background-modifier-border);
+}
+
+/* italic emphasis toggle */
+body.gruvbox-italic-emphasis em { font-style: italic; }
+
+/* cozy rounded, bordered code blocks */
+.markdown-rendered pre,
+.cm-s-obsidian .HyperMD-codeblock {
+	border-radius: var(--code-radius);
+}
+.markdown-rendered pre {
+	border: 1px solid var(--background-modifier-border);
+}
+
+/* blockquote with a soft accent bar */
+.markdown-rendered blockquote {
+	border-inline-start-width: 3px;
+	background: color-mix(in srgb, var(--gb-accent) 7%, transparent);
+	border-radius: 0 6px 6px 0;
+	padding-block: 0.2em;
+}
+
+/* ============================================================
+   CALLOUTS  ·  warm gruvbox tints
+   ============================================================ */
+.callout { --callout-radius: 10px; }
+.callout[data-callout="note"]     { --callout-color: 131, 165, 152; }
+.callout[data-callout="info"]     { --callout-color: 131, 165, 152; }
+.callout[data-callout="tip"]      { --callout-color: 142, 192, 124; }
+.callout[data-callout="success"]  { --callout-color: 184, 187, 38; }
+.callout[data-callout="question"] { --callout-color: 250, 189, 47; }
+.callout[data-callout="warning"]  { --callout-color: 254, 128, 25; }
+.callout[data-callout="danger"]   { --callout-color: 251, 73, 52; }
+.callout[data-callout="quote"]    { --callout-color: 211, 134, 155; }
+
+/* ============================================================
+   UI CHROME  ·  workspace, tabs, sidebar
+   ============================================================ */
+.workspace-tab-header.is-active {
+	--tab-text-color-active: var(--gb-fg0);
+}
+.workspace-tab-header.is-active::after {
+	background: var(--gb-accent);
+}
+.nav-file-title.is-active,
+.nav-folder-title.is-active {
+	--nav-item-background-active: color-mix(in srgb, var(--gb-accent) 18%, transparent);
+	--nav-item-color-active: var(--gb-fg0);
+}
+.titlebar,
+.workspace-ribbon {
+	background-color: var(--gb-bg-alt);
+}
+
+/* active line highlight in the editor */
+.markdown-source-view.mod-cm6 .cm-active.cm-line,
+.markdown-source-view.mod-cm6 .cm-active.cm-gutterElement {
+	background: color-mix(in srgb, var(--gb-bg2) 28%, transparent);
+}
+
+/* graph view on-brand */
+body {
+	--graph-line: var(--gb-bg2);
+	--graph-node: var(--gb-fg2);
+	--graph-node-unresolved: var(--gb-gray);
+	--graph-node-focused: var(--gb-accent);
+	--graph-node-tag: var(--gb-aqua);
+}
+
+/* scrollbars */
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--gb-bg3) 70%, transparent); }
+::-webkit-scrollbar-thumb:hover { background: var(--gb-bg3); }
+
+
+/* ============================================================
+   SIDEBAR MAPLE LEAF  ·  subtle pixel-art watermark (opt-in)
+   ============================================================ */
+body.gruvbox-leaf .workspace-leaf-content[data-type="file-explorer"] { position: relative; }
+body.gruvbox-leaf .workspace-leaf-content[data-type="file-explorer"] .nav-files-container { position: relative; z-index: 1; }
+body.gruvbox-leaf .workspace-leaf-content[data-type="file-explorer"]::after {
+	content: ""; position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+	width: 208px; height: 208px; pointer-events: none; z-index: 0;
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAA30lEQVR4AdySgQrDIAxE1/3/P299sAONZ4h1jDIhnE1yeSp9Pn607gt6fdbqQ9zzRlxGN2n3ymVavtHq4AgtgWYQ8kQc6r5LIGdczXUgTkcwRMr+OBfq4iwdyssjVR7tQDKpESVozIIegh4p+zY6UFto9zMzPa6mA1NXDCDXpOYdHUA7wzKvBe3caua1oOxkWW0GwfNVkPsxgBAWlBkwZTHzDqBZYzY81tyMAcQ7x9Cgap4+eaQDSIWozuxy0afvEqgdGJ+lrWmo0xJIRiDVwfJIl0BXIcCWQBiuxv+B3gAAAP//JXk90AAAAAZJREFUAwA8wXA15X5t1QAAAABJRU5ErkJggg==") no-repeat center / contain;
+	image-rendering: pixelated;
+	opacity: var(--gruvbox-leaf-opacity, 0.045);
+}
+body.theme-light.gruvbox-leaf .workspace-leaf-content[data-type="file-explorer"]::after { filter: invert(1); }
+
+
+/* ============================================================
+   DOTTED NOTE BACKGROUND  ·  subtle dot-grid paper (opt-in)
+   ============================================================ */
+body.gruvbox-dots { --gb-dot-color: color-mix(in srgb, var(--gb-fg2) var(--gruvbox-dot-strength, 5%), transparent); }
+body.gruvbox-dots .markdown-source-view.mod-cm6 .cm-scroller,
+body.gruvbox-dots .markdown-reading-view {
+	background-image: radial-gradient(circle, var(--gb-dot-color) 1px, transparent 1.6px);
+	background-size: 24px 24px;
+	background-position: 12px 12px;
+}
+
+
+/* ============================================================
+   COLORED TASK STATES  ·  Tasks-plugin states (opt-in)
+   ============================================================ */
+body.gruvbox-tasks li.task-list-item[data-task] > input.task-list-item-checkbox {
+	background-size: 100% 100%; background-position: center; background-repeat: no-repeat;
+}
+body.gruvbox-tasks li.task-list-item[data-task="/"] > input.task-list-item-checkbox {
+	--checkbox-marker-color: transparent;
+	background-color: var(--gb-yellow); border-color: var(--gb-yellow);
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%231d2021'%3E%2F%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.theme-light.gruvbox-tasks li.task-list-item[data-task="/"] > input.task-list-item-checkbox {
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%23fbf1c7'%3E%2F%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.gruvbox-tasks li.task-list-item[data-task="!"] > input.task-list-item-checkbox {
+	--checkbox-marker-color: transparent;
+	background-color: var(--gb-red); border-color: var(--gb-red);
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%231d2021'%3E!%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.theme-light.gruvbox-tasks li.task-list-item[data-task="!"] > input.task-list-item-checkbox {
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%23fbf1c7'%3E!%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.gruvbox-tasks li.task-list-item[data-task="?"] > input.task-list-item-checkbox {
+	--checkbox-marker-color: transparent;
+	background-color: var(--gb-purple); border-color: var(--gb-purple);
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%231d2021'%3E%3F%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.theme-light.gruvbox-tasks li.task-list-item[data-task="?"] > input.task-list-item-checkbox {
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%23fbf1c7'%3E%3F%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.gruvbox-tasks li.task-list-item[data-task=">"] > input.task-list-item-checkbox {
+	--checkbox-marker-color: transparent;
+	background-color: var(--gb-aqua); border-color: var(--gb-aqua);
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%231d2021'%3E%3E%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.theme-light.gruvbox-tasks li.task-list-item[data-task=">"] > input.task-list-item-checkbox {
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%23fbf1c7'%3E%3E%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.gruvbox-tasks li.task-list-item[data-task="-"] > input.task-list-item-checkbox {
+	--checkbox-marker-color: transparent;
+	background-color: var(--gb-bg3); border-color: var(--gb-bg3);
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%231d2021'%3E%C3%97%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.theme-light.gruvbox-tasks li.task-list-item[data-task="-"] > input.task-list-item-checkbox {
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Ctext%20x%3D'8'%20y%3D'12.5'%20font-family%3D'ui-monospace%2Cmonospace'%20font-size%3D'13'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%23fbf1c7'%3E%C3%97%3C%2Ftext%3E%3C%2Fsvg%3E");
+}
+body.gruvbox-tasks li.task-list-item[data-task="-"] { color: var(--text-faint); text-decoration: line-through; }

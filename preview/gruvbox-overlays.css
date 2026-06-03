@@ -1,0 +1,203 @@
+/* ============================================================
+   GRUVBOX COZY — preview overlays
+   Command palette · Quick switcher · Settings · Graph · Menu
+   All inherit --gb-* from .gb-app, so they track the theme live.
+   ============================================================ */
+
+.ov-backdrop {
+	position: absolute; inset: 0; z-index: 50;
+	background: rgba(0,0,0,.45);
+	display: flex; justify-content: center;
+	opacity: 0; pointer-events: none;
+}
+.gb-app[data-mode="light"] .ov-backdrop { background: rgba(60,45,20,.28); }
+.ov-backdrop.show { opacity: 1; pointer-events: auto; }
+
+/* ---------- shared modal shell ---------- */
+.prompt {
+	width: 740px; max-width: calc(100vw - 48px);
+	margin-top: 92px; align-self: flex-start;
+	background: var(--gb-bg);
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 65%, transparent);
+	border-radius: 12px;
+	box-shadow: var(--shadow), 0 0 0 1px rgba(0,0,0,.1);
+	overflow: hidden; height: max-content;
+}
+.prompt-input-wrap { padding: 12px 14px; border-bottom: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent); }
+.prompt-input {
+	width: 100%; border: none; outline: none; background: transparent;
+	color: var(--gb-fg1); font-size: 17px; font-family: var(--font-ui);
+}
+.prompt-input::placeholder { color: var(--gb-gray); }
+.prompt-instructions {
+	display: flex; flex-wrap: wrap; gap: 16px;
+	padding: 8px 14px; border-top: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+	font-size: 12px; color: var(--gb-gray);
+}
+.prompt-instructions b { color: var(--gb-fg4); font-weight: 600; }
+.kbd {
+	display: inline-block; padding: 1px 6px; border-radius: 5px;
+	background: var(--gb-bg-alt); color: var(--gb-fg4);
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 55%, transparent);
+	font-family: var(--font-mono); font-size: 11px; line-height: 1.5;
+}
+
+/* ---------- results list ---------- */
+.prompt-results { max-height: 380px; overflow-y: auto; padding: 6px; }
+.sugg {
+	display: flex; align-items: center; gap: 11px;
+	padding: 8px 12px; border-radius: 8px; cursor: pointer;
+	color: var(--gb-fg2); font-size: 14.5px;
+}
+.sugg .s-ico { color: var(--gb-fg4); display: grid; place-items: center; flex: none; }
+.sugg .s-ico svg { width: 16px; height: 16px; }
+.sugg .s-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sugg .s-aux { color: var(--gb-gray); font-size: 12.5px; }
+.sugg .s-path { color: var(--gb-gray); font-size: 12.5px; }
+.sugg .hk { display: flex; gap: 4px; }
+.sugg.is-selected {
+	background: color-mix(in srgb, var(--gb-accent) 18%, transparent);
+	color: var(--gb-fg0);
+}
+.sugg.is-selected .s-ico { color: var(--gb-accent); }
+.sugg:hover:not(.is-selected) { background: color-mix(in srgb, var(--gb-bg2) 40%, transparent); }
+.sugg-group {
+	padding: 12px 12px 4px; font-size: 11px; font-weight: 600;
+	letter-spacing: .5px; text-transform: uppercase; color: var(--gb-gray);
+}
+
+/* ---------- settings modal ---------- */
+.modal-settings {
+	width: 920px; max-width: calc(100vw - 48px);
+	height: 600px; max-height: calc(100vh - 120px);
+	margin-top: 56px; align-self: flex-start;
+	display: flex; background: var(--gb-bg);
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 60%, transparent);
+	border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);
+}
+.set-side {
+	width: 230px; flex: none; background: var(--gb-bg-alt);
+	border-right: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+	padding: 14px 10px; overflow-y: auto;
+}
+.set-search {
+	width: 100%; margin-bottom: 10px; padding: 7px 10px; border-radius: 7px;
+	background: var(--gb-bg); color: var(--gb-fg2); font-size: 13px;
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 55%, transparent); outline: none;
+	font-family: var(--font-ui);
+}
+.set-group-label { padding: 12px 10px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; color: var(--gb-gray); font-weight: 600; }
+.set-tab {
+	padding: 7px 10px; border-radius: 7px; font-size: 13.5px; color: var(--gb-fg3);
+	cursor: pointer; display: flex; align-items: center; gap: 9px;
+}
+.set-tab svg { width: 15px; height: 15px; color: var(--gb-fg4); }
+.set-tab:hover { background: color-mix(in srgb, var(--gb-bg2) 40%, transparent); color: var(--gb-fg1); }
+.set-tab.active { background: color-mix(in srgb, var(--gb-accent) 18%, transparent); color: var(--gb-fg0); }
+.set-tab.active svg { color: var(--gb-accent); }
+.set-main { flex: 1; overflow-y: auto; padding: 22px 28px; }
+.set-h { font-size: 20px; font-weight: 700; color: var(--gb-fg0); margin: 0 0 4px; font-family: var(--font-ui); }
+.set-sub { font-size: 13px; color: var(--gb-gray); margin: 0 0 18px; }
+.set-item {
+	display: flex; align-items: center; gap: 16px; padding: 14px 0;
+	border-top: 1px solid color-mix(in srgb, var(--gb-bg2) 35%, transparent);
+}
+.set-item-info { flex: 1; }
+.set-item-name { font-size: 14px; color: var(--gb-fg1); font-weight: 500; }
+.set-item-desc { font-size: 12.5px; color: var(--gb-gray); margin-top: 2px; }
+.set-control { flex: none; }
+
+/* form controls (theme-styled) */
+.ctl-select {
+	background: var(--gb-bg-alt); color: var(--gb-fg2);
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 60%, transparent);
+	border-radius: 7px; padding: 6px 28px 6px 11px; font-size: 13px;
+	font-family: var(--font-ui); cursor: pointer; outline: none;
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23928374' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+	background-repeat: no-repeat; background-position: right 9px center;
+}
+.ctl-toggle {
+	width: 42px; height: 24px; border-radius: 14px; background: var(--gb-bg2);
+	position: relative; cursor: pointer; transition: background .15s; flex: none;
+}
+.ctl-toggle::after {
+	content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px;
+	border-radius: 50%; background: var(--gb-fg3); transition: .15s;
+}
+.ctl-toggle.on { background: var(--gb-accent); }
+.ctl-toggle.on::after { left: 21px; background: var(--gb-bg); }
+.ctl-slider { width: 140px; height: 4px; border-radius: 3px; background: var(--gb-bg2); position: relative; }
+.ctl-slider .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--gb-accent); }
+.ctl-slider .knob { position: absolute; top: 50%; width: 15px; height: 15px; border-radius: 50%; background: var(--gb-accent); transform: translate(-50%,-50%); box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+.ctl-swatches { display: flex; gap: 7px; }
+.ctl-swatch { width: 22px; height: 22px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; }
+.ctl-swatch.sel { border-color: var(--gb-fg1); }
+.ctl-text {
+	background: var(--gb-bg-alt); color: var(--gb-fg2);
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 60%, transparent);
+	border-radius: 7px; padding: 6px 11px; font-size: 13px; width: 150px; outline: none;
+	font-family: var(--font-ui);
+}
+
+/* ---------- graph view ---------- */
+.graph-overlay {
+	position: absolute; inset: 0; z-index: 40; background: var(--gb-bg);
+	opacity: 0; pointer-events: none;
+}
+.graph-overlay.show { opacity: 1; pointer-events: auto; }
+.graph-overlay .g-close {
+	position: absolute; top: 14px; right: 16px; z-index: 2;
+	display: flex; align-items: center; gap: 7px; padding: 7px 12px;
+	background: var(--gb-bg-alt); color: var(--gb-fg3); border-radius: 8px;
+	font-size: 12.5px; cursor: pointer; border: 1px solid color-mix(in srgb, var(--gb-bg2) 55%, transparent);
+}
+.graph-overlay svg.g-canvas { width: 100%; height: 100%; display: block; }
+.g-edge { stroke: color-mix(in srgb, var(--gb-bg3) 75%, transparent); stroke-width: 1.4; }
+.g-node { fill: var(--gb-fg3); }
+.g-node.tag { fill: var(--gb-aqua); }
+.g-node.focus { fill: var(--gb-accent); }
+.g-label { fill: var(--gb-fg4); font-family: var(--font-ui); font-size: 11px; text-anchor: middle; }
+.g-controls {
+	position: absolute; top: 14px; left: 16px; z-index: 2;
+	background: var(--gb-bg-alt); border: 1px solid color-mix(in srgb, var(--gb-bg2) 55%, transparent);
+	border-radius: 10px; padding: 12px 14px; width: 190px;
+}
+.g-controls .gc-title { font-size: 11px; text-transform: uppercase; letter-spacing: .4px; color: var(--gb-gray); margin-bottom: 10px; font-weight: 600; }
+.g-controls .gc-row { display: flex; align-items: center; gap: 10px; margin: 9px 0; font-size: 12.5px; color: var(--gb-fg3); }
+
+/* ---------- context menu ---------- */
+.ctx-menu {
+	position: absolute; z-index: 60; min-width: 200px;
+	background: var(--gb-bg); border: 1px solid color-mix(in srgb, var(--gb-bg2) 60%, transparent);
+	border-radius: 9px; padding: 5px; box-shadow: var(--shadow);
+	opacity: 0; pointer-events: none; transform-origin: top left;
+}
+.ctx-menu.show { opacity: 1; pointer-events: auto; }
+.ctx-item {
+	display: flex; align-items: center; gap: 11px; padding: 7px 11px; border-radius: 6px;
+	font-size: 13.5px; color: var(--gb-fg2); cursor: pointer;
+}
+.ctx-item svg { width: 15px; height: 15px; color: var(--gb-fg4); }
+.ctx-item .ctx-hk { margin-left: auto; color: var(--gb-gray); font-size: 12px; }
+.ctx-item:hover { background: color-mix(in srgb, var(--gb-accent) 18%, transparent); color: var(--gb-fg0); }
+.ctx-item:hover svg { color: var(--gb-accent); }
+.ctx-item.danger:hover { background: color-mix(in srgb, var(--gb-red) 20%, transparent); color: var(--gb-red); }
+.ctx-item.danger:hover svg { color: var(--gb-red); }
+.ctx-sep { height: 1px; background: color-mix(in srgb, var(--gb-bg2) 45%, transparent); margin: 5px 6px; }
+
+/* ---------- hint strip ---------- */
+.hint-strip {
+	position: absolute; left: 50%; bottom: 38px; transform: translateX(-50%); z-index: 30;
+	display: flex; gap: 6px; padding: 6px; border-radius: 12px;
+	background: color-mix(in srgb, var(--gb-bg-alt) 92%, transparent);
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 55%, transparent);
+	box-shadow: var(--shadow); backdrop-filter: blur(8px);
+}
+.hint-btn {
+	display: flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 8px;
+	font-size: 12.5px; color: var(--gb-fg3); cursor: pointer; font-family: var(--font-ui);
+	border: none; background: transparent; transition: .12s;
+}
+.hint-btn:hover { background: color-mix(in srgb, var(--gb-bg2) 45%, transparent); color: var(--gb-fg0); }
+.hint-btn .kbd { pointer-events: none; }

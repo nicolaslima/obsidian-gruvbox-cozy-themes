@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gruvbox Cozy · Obsidian Preview</title>
+<style>
+/* ============================================================
+   GRUVBOX COZY — live preview of the Obsidian theme
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+	background: #191919;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	overflow: hidden;
+}
+
+/* ---- font stacks ---- */
+.gb-app {
+	--font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-serif: "Iowan Old Style", "Palatino Linotype", Charter, Georgia, "Source Serif 4", serif;
+	--font-mono: "JetBrains Mono", "Fira Code", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+	--font-ui: var(--font-sans);
+	--font-read: var(--font-sans);
+	font-family: var(--font-ui);
+}
+.gb-app[data-font="serif"] { --font-read: var(--font-serif); }
+.gb-app[data-font="mono"]  { --font-read: var(--font-mono); }
+
+/* dot-grid note background (opt-in, subtle) */
+.gb-app { --dot-strength: 0%; --dot-color: color-mix(in srgb, var(--gb-fg2) var(--dot-strength), transparent); }
+
+/* ============================================================
+   PALETTE — DARK (default medium)
+   ============================================================ */
+.gb-app[data-mode="dark"] {
+	--gb-bg0-h:#1d2021; --gb-bg0:#282828; --gb-bg0-s:#32302f;
+	--gb-bg1:#3c3836; --gb-bg2:#504945; --gb-bg3:#665c54; --gb-bg4:#7c6f64;
+	--gb-gray:#928374; --gb-fg4:#a89984; --gb-fg3:#bdae93; --gb-fg2:#d5c4a1;
+	--gb-fg1:#ebdbb2; --gb-fg0:#fbf1c7;
+	--gb-red:#fb4934; --gb-green:#b8bb26; --gb-yellow:#fabd2f; --gb-blue:#83a598;
+	--gb-purple:#d3869b; --gb-aqua:#8ec07c; --gb-orange:#fe8019;
+	--gb-bg:var(--gb-bg0); --gb-bg-alt:var(--gb-bg0-h); --gb-bg-raised:var(--gb-bg1);
+	--shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+.gb-app[data-mode="dark"][data-contrast="soft"] { --gb-bg:#32302f; --gb-bg-alt:#282828; --gb-bg-raised:#3c3836; }
+.gb-app[data-mode="dark"][data-contrast="hard"] { --gb-bg:#1d2021; --gb-bg-alt:#141617; --gb-bg-raised:#282828; }
+
+/* ============================================================
+   PALETTE — LIGHT (cream)
+   ============================================================ */
+.gb-app[data-mode="light"] {
+	--gb-bg0-h:#f9f5d7; --gb-bg0:#fbf1c7; --gb-bg0-s:#f2e5bc;
+	--gb-bg1:#ebdbb2; --gb-bg2:#d5c4a1; --gb-bg3:#bdae93; --gb-bg4:#a89984;
+	--gb-gray:#7c6f64; --gb-fg4:#7c6f64; --gb-fg3:#665c54; --gb-fg2:#504945;
+	--gb-fg1:#3c3836; --gb-fg0:#282828;
+	--gb-red:#cc241d; --gb-green:#98971a; --gb-yellow:#d79921; --gb-blue:#458588;
+	--gb-purple:#b16286; --gb-aqua:#689d6a; --gb-orange:#d65d0e;
+	--gb-bg:var(--gb-bg0); --gb-bg-alt:var(--gb-bg0-h); --gb-bg-raised:var(--gb-bg1);
+	--shadow: 0 8px 30px rgba(80,60,30,.18);
+}
+.gb-app[data-mode="light"][data-contrast="soft"] { --gb-bg:#f2e5bc; --gb-bg-alt:#fbf1c7; --gb-bg-raised:#ebdbb2; }
+.gb-app[data-mode="light"][data-contrast="hard"] { --gb-bg:#f9f5d7; --gb-bg-alt:#f2e5bc; --gb-bg-raised:#fbf1c7; }
+
+/* ---- accent ---- */
+.gb-app { --gb-accent: var(--gb-orange); }
+.gb-app[data-accent="orange"] { --gb-accent: var(--gb-orange); }
+.gb-app[data-accent="yellow"] { --gb-accent: var(--gb-yellow); }
+.gb-app[data-accent="aqua"]   { --gb-accent: var(--gb-aqua); }
+.gb-app[data-accent="blue"]   { --gb-accent: var(--gb-blue); }
+.gb-app[data-accent="purple"] { --gb-accent: var(--gb-purple); }
+.gb-app[data-accent="green"]  { --gb-accent: var(--gb-green); }
+.gb-app[data-accent="red"]    { --gb-accent: var(--gb-red); }
+
+/* ---- heading colors ---- */
+.gb-app { --h1:var(--gb-fg0); --h2:var(--gb-fg0); --h3:var(--gb-fg0); }
+.gb-app[data-headings="on"] {
+	--h1:var(--gb-red); --h2:var(--gb-orange); --h3:var(--gb-yellow);
+}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+.gb-app {
+	position: fixed; inset: 0;
+	display: flex; flex-direction: column;
+	background: var(--gb-bg-alt);
+	color: var(--gb-fg1);
+	font-size: 14px;
+}
+.gb-titlebar {
+	height: 40px; flex: none;
+	display: flex; align-items: center; gap: 8px;
+	padding: 0 14px;
+	background: var(--gb-bg-alt);
+	border-bottom: 1px solid color-mix(in srgb, var(--gb-bg2) 50%, transparent);
+	-webkit-app-region: drag;
+}
+.traffic { display: flex; gap: 8px; }
+.traffic i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+.traffic .r { background: #fb4934; } .traffic .y { background: #fabd2f; } .traffic .g { background: #b8bb26; }
+.gb-app[data-mode="light"] .traffic i { opacity: .9; }
+.titlebar-title {
+	flex: 1; text-align: center; font-size: 12.5px; color: var(--gb-fg4);
+	letter-spacing: .2px;
+}
+.titlebar-btns { display: flex; gap: 14px; color: var(--gb-fg4); }
+.titlebar-btns svg { width: 16px; height: 16px; }
+
+.gb-body { flex: 1; display: flex; min-height: 0; }
+
+/* ---- ribbon ---- */
+.ribbon {
+	width: 46px; flex: none;
+	background: var(--gb-bg-alt);
+	border-right: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+	display: flex; flex-direction: column; align-items: center;
+	padding: 10px 0; gap: 4px;
+}
+.ribbon .rib-icon {
+	width: 32px; height: 32px; border-radius: 7px;
+	display: grid; place-items: center; color: var(--gb-fg4);
+	cursor: pointer; transition: .12s;
+}
+.ribbon .rib-icon:hover { background: color-mix(in srgb, var(--gb-bg2) 50%, transparent); color: var(--gb-fg1); }
+.ribbon .rib-icon.active { color: var(--gb-accent); }
+.ribbon svg { width: 18px; height: 18px; }
+.ribbon .spacer { flex: 1; }
+
+/* ---- left sidebar ---- */
+.sidebar {
+	width: 256px; flex: none;
+	position: relative;
+	background: var(--gb-bg-alt);
+	border-right: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+	display: flex; flex-direction: column; min-height: 0;
+}
+.sidebar-leaf {
+	position: absolute; left: 50%; bottom: 50px; transform: translateX(-50%);
+	width: 208px; height: 208px;
+	background: url("maple-leaf.png") no-repeat center / contain;
+	image-rendering: pixelated;
+	opacity: var(--leaf-opacity, 0.045);
+	pointer-events: none; z-index: 0;
+}
+.gb-app[data-mode="light"] .sidebar-leaf { filter: invert(1); }
+.gb-app[data-leaf="off"] .sidebar-leaf { display: none; }
+.sidebar-quote {
+	position: absolute; left: 50%; bottom: 38px; transform: translateX(-50%);
+	width: 200px; text-align: center;
+	font-family: var(--font-serif, Georgia, serif); font-style: italic;
+	font-size: 13.5px; line-height: 1.5; letter-spacing: .2px;
+	color: var(--gb-fg1); opacity: 0.13; pointer-events: none; z-index: 0;
+}
+.gb-app[data-leaf="off"] .sidebar-quote { display: none; }
+.sb-head {
+	display: flex; align-items: center; gap: 8px;
+	padding: 12px 14px 8px;
+}
+.sb-head .vault {
+	font-weight: 600; color: var(--gb-fg2); font-size: 13.5px;
+	flex: 1; display: flex; align-items: center; gap: 7px;
+}
+.sb-head .vault .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gb-accent); }
+.sb-tools { display: flex; gap: 4px; color: var(--gb-fg4); }
+.sb-tools svg { width: 15px; height: 15px; }
+.sb-tools .t { padding: 4px; border-radius: 5px; cursor: pointer; }
+.sb-tools .t:hover { background: color-mix(in srgb, var(--gb-bg2) 50%, transparent); color: var(--gb-fg1); }
+
+.nav { flex: 1; overflow-y: auto; padding: 4px 8px 16px; position: relative; z-index: 1; }
+.nav-folder > .row .twist { transition: transform .15s; }
+.nav-row {
+	display: flex; align-items: center; gap: 6px;
+	padding: 4px 6px; border-radius: 6px;
+	color: var(--gb-fg3); cursor: pointer; font-size: 13.5px;
+	white-space: nowrap;
+}
+.nav-row:hover { background: color-mix(in srgb, var(--gb-bg2) 45%, transparent); color: var(--gb-fg1); }
+.nav-row.active {
+	background: color-mix(in srgb, var(--gb-accent) 18%, transparent);
+	color: var(--gb-fg0);
+}
+.nav-row.active .ico { color: var(--gb-accent); }
+.nav-row .ico { color: var(--gb-fg4); display: grid; place-items: center; }
+.nav-row .ico svg { width: 15px; height: 15px; }
+.nav-children { margin-left: 14px; border-left: 1px solid color-mix(in srgb, var(--gb-bg2) 40%, transparent); padding-left: 4px; }
+
+/* ---- main / tabs ---- */
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; background: var(--gb-bg); }
+.tabbar {
+	height: 40px; flex: none; display: flex; align-items: stretch;
+	background: var(--gb-bg-alt);
+	padding-left: 6px; gap: 2px;
+}
+.tab {
+	display: flex; align-items: center; gap: 8px;
+	padding: 0 14px; font-size: 13px; color: var(--gb-fg4);
+	border-radius: 8px 8px 0 0; cursor: pointer; align-self: flex-end; height: 32px;
+	max-width: 200px;
+}
+.tab .x { opacity: 0; color: var(--gb-fg4); display: grid; place-items: center; }
+.tab:hover .x { opacity: .7; }
+.tab svg { width: 14px; height: 14px; }
+.tab.active {
+	background: var(--gb-bg); color: var(--gb-fg0); position: relative;
+}
+.tab.active::after {
+	content: ""; position: absolute; left: 10px; right: 10px; top: 0; height: 2px;
+	background: var(--gb-accent); border-radius: 2px;
+}
+.tab-spacer { flex: 1; }
+.tab-actions { display: flex; align-items: center; gap: 12px; padding: 0 14px; color: var(--gb-fg4); }
+.tab-actions svg { width: 16px; height: 16px; }
+
+/* ---- editor scroll ---- */
+.editor {
+	flex: 1; overflow-y: auto;
+	background-color: var(--gb-bg);
+	background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1.6px);
+	background-size: 24px 24px;
+	background-position: 12px 12px;
+	background-attachment: local;
+}
+.doc {
+	max-width: 720px; margin: 0 auto; padding: 46px 56px 140px;
+	font-family: var(--font-read);
+	color: var(--gb-fg1); font-size: 17px; line-height: 1.7;
+}
+.doc .inline-title {
+	font-family: var(--font-read);
+	font-size: 38px; font-weight: 800; line-height: 1.15;
+	color: var(--gb-fg0); margin: 0 0 6px;
+	letter-spacing: -.5px;
+}
+.doc .props {
+	display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+	margin: 4px 0 26px; padding-bottom: 18px;
+	border-bottom: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+}
+.prop {
+	display: inline-flex; align-items: center; gap: 6px;
+	font-size: 12.5px; color: var(--gb-fg4); font-family: var(--font-ui);
+}
+.prop .k { color: var(--gb-gray); }
+.tag {
+	font-family: var(--font-ui); font-size: 12.5px; font-weight: 500;
+	color: var(--gb-aqua);
+	background: color-mix(in srgb, var(--gb-aqua) 16%, transparent);
+	padding: 2px 9px; border-radius: 20px;
+}
+
+.doc h1, .doc h2, .doc h3 { font-family: var(--font-read); line-height: 1.25; scroll-margin-top: 20px; }
+.doc h1 { font-size: 28px; font-weight: 800; color: var(--h1); margin: 38px 0 12px; }
+.doc h2 { font-size: 23px; font-weight: 700; color: var(--h2); margin: 34px 0 10px; }
+.doc h3 { font-size: 19px; font-weight: 700; color: var(--h3); margin: 26px 0 8px; }
+.doc p { margin: 0 0 16px; }
+.doc strong { color: var(--gb-fg0); font-weight: 700; }
+.doc em { font-style: italic; color: var(--gb-fg2); }
+.doc a {
+	color: var(--gb-accent); text-decoration: underline;
+	text-decoration-thickness: 1px; text-underline-offset: 2px; cursor: pointer;
+}
+.doc a:hover { color: color-mix(in srgb, var(--gb-accent) 78%, #fff); }
+.doc a.internal { text-decoration: none; }
+.doc a.internal:hover { text-decoration: underline; }
+
+.doc hr {
+	border: none; height: 1px; background: var(--gb-bg2);
+	margin: 30px 0;
+}
+
+.doc ul, .doc ol { margin: 0 0 16px; padding-left: 24px; }
+.doc li { margin: 5px 0; }
+.doc ul li::marker { color: var(--gb-accent); }
+.doc ol li::marker { color: var(--gb-accent); font-weight: 600; }
+
+/* task list */
+.task { list-style: none; padding-left: 0; }
+.task li { display: flex; align-items: flex-start; gap: 10px; }
+.cbx {
+	width: 18px; height: 18px; border-radius: 5px; flex: none; margin-top: 2px;
+	border: 2px solid var(--gb-bg3); display: grid; place-items: center;
+	cursor: pointer; transition: .12s;
+}
+.cbx svg { width: 11px; height: 11px; color: var(--gb-bg); opacity: 0; }
+.task li.done .cbx { background: var(--gb-accent); border-color: var(--gb-accent); }
+.task li.done .cbx svg { opacity: 1; }
+.task li.done .lbl { color: var(--gb-gray); text-decoration: line-through; }
+/* colored task states */
+.cbx.st { font-family: var(--font-mono); font-size: 12px; font-weight: 700; line-height: 1; color: var(--gb-bg); }
+.task li.todo .cbx { border-color: var(--gb-accent); }
+.task li.prog .cbx { background: var(--gb-yellow); border-color: var(--gb-yellow); }
+.task li.imp  .cbx { background: var(--gb-red);    border-color: var(--gb-red); }
+.task li.ques .cbx { background: var(--gb-purple); border-color: var(--gb-purple); }
+.task li.fwd  .cbx { background: var(--gb-aqua);   border-color: var(--gb-aqua); }
+.task li.cancel .cbx { background: var(--gb-bg3);  border-color: var(--gb-bg3); }
+.task li.cancel .lbl { color: var(--gb-gray); text-decoration: line-through; }
+
+/* blockquote */
+.doc blockquote {
+	margin: 0 0 18px; padding: 6px 18px;
+	border-left: 3px solid var(--gb-accent);
+	background: color-mix(in srgb, var(--gb-accent) 7%, transparent);
+	border-radius: 0 8px 8px 0; color: var(--gb-fg3); font-style: italic;
+}
+.doc blockquote p { margin: 6px 0; }
+
+/* inline + block code */
+.doc code {
+	font-family: var(--font-mono); font-size: .88em;
+	background: var(--gb-bg-alt); color: var(--gb-purple);
+	padding: 1px 6px; border-radius: 6px;
+}
+.codeblock {
+	background: var(--gb-bg-alt);
+	border: 1px solid color-mix(in srgb, var(--gb-bg2) 55%, transparent);
+	border-radius: 10px; margin: 0 0 18px; overflow: hidden;
+}
+.codeblock .cb-head {
+	display: flex; align-items: center; justify-content: space-between;
+	padding: 7px 14px; font-family: var(--font-mono); font-size: 11.5px;
+	color: var(--gb-gray);
+	border-bottom: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+}
+.codeblock pre {
+	margin: 0; padding: 14px 16px; overflow-x: auto;
+	font-family: var(--font-mono); font-size: 13.5px; line-height: 1.65;
+	color: var(--gb-fg2);
+}
+.codeblock .cm-comment { color: var(--gb-gray); font-style: italic; }
+.codeblock .cm-kw  { color: var(--gb-red); }
+.codeblock .cm-fn  { color: var(--gb-aqua); }
+.codeblock .cm-str { color: var(--gb-green); }
+.codeblock .cm-num { color: var(--gb-purple); }
+.codeblock .cm-prop{ color: var(--gb-blue); }
+.codeblock .cm-op  { color: var(--gb-orange); }
+
+/* callout */
+.callout {
+	--c: var(--gb-blue);
+	margin: 0 0 18px; padding: 12px 16px; border-radius: 10px;
+	background: color-mix(in srgb, var(--c) 10%, transparent);
+	border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
+	border-left-width: 3px;
+}
+.callout.tip { --c: var(--gb-green); }
+.callout.warn { --c: var(--gb-orange); }
+.callout .ca-head {
+	display: flex; align-items: center; gap: 8px; font-family: var(--font-ui);
+	font-weight: 700; color: var(--c); font-size: 14px; margin-bottom: 4px;
+}
+.callout .ca-head svg { width: 16px; height: 16px; }
+.callout .ca-body { color: var(--gb-fg2); font-size: 15px; }
+.callout .ca-body p { margin: 0; }
+
+/* table */
+.doc table { border-collapse: collapse; width: 100%; margin: 0 0 18px; font-size: 14.5px; }
+.doc th, .doc td { border: 1px solid color-mix(in srgb, var(--gb-bg2) 55%, transparent); padding: 8px 12px; text-align: left; }
+.doc th { background: var(--gb-bg-alt); color: var(--gb-fg1); font-weight: 600; font-family: var(--font-ui); }
+.doc tr:nth-child(even) td { background: color-mix(in srgb, var(--gb-bg2) 20%, transparent); }
+.swatch { display: inline-block; width: 13px; height: 13px; border-radius: 3px; vertical-align: -2px; margin-right: 7px; }
+
+/* ---- right sidebar (outline) ---- */
+.right {
+	width: 240px; flex: none;
+	background: var(--gb-bg-alt);
+	border-left: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+	display: flex; flex-direction: column; min-height: 0;
+}
+.right-head {
+	padding: 12px 14px; font-size: 12px; font-weight: 600; letter-spacing: .4px;
+	text-transform: uppercase; color: var(--gb-gray);
+	display: flex; align-items: center; gap: 7px;
+}
+.right-head svg { width: 14px; height: 14px; }
+.outline { padding: 0 8px; overflow-y: auto; }
+.ol-row {
+	padding: 5px 8px; border-radius: 6px; font-size: 13px; color: var(--gb-fg4);
+	cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ol-row:hover { background: color-mix(in srgb, var(--gb-bg2) 45%, transparent); color: var(--gb-fg1); }
+.ol-row.lvl2 { padding-left: 22px; font-size: 12.5px; }
+.ol-row.active { color: var(--gb-accent); }
+
+/* ---- status bar ---- */
+.statusbar {
+	height: 26px; flex: none; display: flex; align-items: center; gap: 16px;
+	padding: 0 16px; background: var(--gb-bg-alt);
+	border-top: 1px solid color-mix(in srgb, var(--gb-bg2) 45%, transparent);
+	font-size: 11.5px; color: var(--gb-gray); font-family: var(--font-ui);
+}
+.statusbar .sb-r { margin-left: auto; display: flex; gap: 16px; }
+.statusbar .ac { color: var(--gb-accent); }
+
+/* scrollbars */
+.editor::-webkit-scrollbar, .nav::-webkit-scrollbar, .outline::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--gb-bg3, #665c54) 60%, transparent); border-radius: 8px; border: 3px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--gb-bg3, #665c54); background-clip: padding-box; }
+
+/* responsive: collapse side panels */
+@media (max-width: 1180px) { .right { display: none; } }
+@media (max-width: 920px) { .sidebar { display: none; } }
+
+/* tweaks panel font reset */
+#tweaks-root, #tweaks-root * { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+</style>
+<link rel="stylesheet" href="gruvbox-overlays.css?v=4" />
+</head>
+<body>
+<div class="gb-app" id="gbApp" data-mode="dark" data-contrast="medium" data-accent="orange" data-headings="on" data-font="sans">
+
+	<!-- titlebar -->
+	<div class="gb-titlebar">
+		<div class="traffic"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+		<div class="titlebar-title">Gruvbox Cozy — retro-groove.md</div>
+		<div class="titlebar-btns">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+		</div>
+	</div>
+
+	<div class="gb-body">
+		<!-- ribbon -->
+		<div class="ribbon">
+			<div class="rib-icon" title="Files"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v13h18V7"/><path d="M3 7l2-3h6l2 3"/></svg></div>
+			<div class="rib-icon active" title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+			<div class="rib-icon" title="Bookmarks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg></div>
+			<div class="rib-icon" title="Graph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="13" cy="17" r="2.5"/><path d="M8 8l4 7M16 8l-2 7"/></svg></div>
+			<div class="spacer"></div>
+			<div class="rib-icon" title="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div>
+		</div>
+
+		<!-- left sidebar -->
+		<aside class="sidebar">
+			<div class="sb-head">
+				<div class="vault"><span class="dot"></span> Cozy Vault</div>
+				<div class="sb-tools">
+					<span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+					<span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></span>
+				</div>
+			</div>
+			<nav class="nav" id="nav"></nav>
+			<div class="sidebar-leaf"></div>
+			<div class="sidebar-quote" id="sbQuote"></div>
+		</aside>
+
+		<!-- main -->
+		<main class="main">
+			<div class="tabbar">
+				<div class="tab active">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>
+					retro-groove
+					<span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+				</div>
+				<div class="tab">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>
+					palette
+					<span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+				</div>
+				<div class="tab-spacer"></div>
+				<div class="tab-actions">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20l9-11h-7V4l-9 11h7z"/></svg>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+				</div>
+			</div>
+
+			<div class="editor">
+				<article class="doc">
+					<h1 class="inline-title">On Gruvbox &amp; Cozy Reading</h1>
+					<div class="props">
+						<span class="prop"><span class="k">created</span> 2026-06-02</span>
+						<span class="prop"><span class="k">status</span> evergreen</span>
+						<span class="tag">#theme</span>
+						<span class="tag">#aesthetic</span>
+					</div>
+
+					<p>Gruvbox is a <strong>retro groove</strong> color scheme built around warm, low-saturation tones that stay <em>easy on the eyes</em> through long writing sessions. This note is a living preview — every element below is styled exactly as the <a class="internal">[[Gruvbox Cozy]]</a> theme renders it in Obsidian.</p>
+
+					<div class="callout">
+						<div class="ca-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg> Note</div>
+						<div class="ca-body"><p>The palette never uses pure black or white. Backgrounds sit on warm browns; text rests on soft cream — that's the whole secret to the cozy feel.</p></div>
+					</div>
+
+					<h2>Why it feels warm</h2>
+					<p>Every neutral leans slightly toward brown and amber instead of cold gray. Pair that with muted accent colors and you get contrast that's <em>readable</em> without ever being harsh.</p>
+
+					<blockquote><p>"Keep colors easily distinguishable, contrast enough, and still pleasant for the eyes."</p></blockquote>
+
+					<h3>The reading checklist</h3>
+					<ul class="task">
+						<li class="done"><span class="cbx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="4 12 10 18 20 6"/></svg></span><span class="lbl">Warm background, never pure black</span></li>
+						<li class="done"><span class="cbx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="4 12 10 18 20 6"/></svg></span><span class="lbl">Cream foreground for body text</span></li>
+						<li><span class="cbx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="4 12 10 18 20 6"/></svg></span><span class="lbl">Headings tinted by level</span></li>
+						<li><span class="cbx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="4 12 10 18 20 6"/></svg></span><span class="lbl">One confident accent for links &amp; cursor</span></li>
+					</ul>
+
+					<h3>Task states</h3>
+					<p>Beyond done/undone, the theme colors each checkbox state (works with the Tasks plugin):</p>
+					<ul class="task">
+						<li class="todo"><span class="cbx"></span><span class="lbl">To do</span></li>
+						<li class="done"><span class="cbx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="4 12 10 18 20 6"/></svg></span><span class="lbl">Done</span></li>
+						<li class="prog"><span class="cbx st">/</span><span class="lbl">In progress</span></li>
+						<li class="imp"><span class="cbx st">!</span><span class="lbl">Important</span></li>
+						<li class="ques"><span class="cbx st">?</span><span class="lbl">Question</span></li>
+						<li class="fwd"><span class="cbx st">&gt;</span><span class="lbl">Forwarded</span></li>
+						<li class="cancel"><span class="cbx st">×</span><span class="lbl">Cancelled</span></li>
+					</ul>
+
+					<h2>Syntax highlighting</h2>
+					<p>Code uses the full palette — set inline like <code>--background-primary</code>, or in fenced blocks:</p>
+					<div class="codeblock">
+						<div class="cb-head"><span>theme.css</span><span>css</span></div>
+<pre><span class="cm-comment">/* map gruvbox → obsidian */</span>
+<span class="cm-prop">.theme-dark</span> {
+  <span class="cm-prop">--background-primary</span>: <span class="cm-num">#282828</span><span class="cm-op">;</span>
+  <span class="cm-prop">--text-normal</span>:        <span class="cm-num">#ebdbb2</span><span class="cm-op">;</span>
+  <span class="cm-prop">--interactive-accent</span>: <span class="cm-num">#fe8019</span><span class="cm-op">;</span>
+}
+
+<span class="cm-kw">function</span> <span class="cm-fn">cozy</span>(mode) {
+  <span class="cm-kw">return</span> mode <span class="cm-op">===</span> <span class="cm-str">"dark"</span>
+    <span class="cm-op">?</span> <span class="cm-str">"retro groove"</span>
+    <span class="cm-op">:</span> <span class="cm-str">"cream"</span><span class="cm-op">;</span>
+}</pre>
+					</div>
+
+					<h2>The palette at a glance</h2>
+					<table>
+						<thead><tr><th>Role</th><th>Dark</th><th>Accent</th></tr></thead>
+						<tbody>
+							<tr><td>Background</td><td><span class="swatch" style="background:#282828"></span>dark0</td><td>—</td></tr>
+							<tr><td>Text</td><td><span class="swatch" style="background:#ebdbb2"></span>light1</td><td>—</td></tr>
+							<tr><td>Orange</td><td><span class="swatch" style="background:#fe8019"></span>#fe8019</td><td>links</td></tr>
+							<tr><td>Aqua</td><td><span class="swatch" style="background:#8ec07c"></span>#8ec07c</td><td>tags</td></tr>
+						</tbody>
+					</table>
+
+					<div class="callout tip">
+						<div class="ca-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c1 1 1 2 1 3h6c0-1 0-2 1-3a7 7 0 0 0-4-12z"/></svg> Tip</div>
+						<div class="ca-body"><p>Use the <strong>Tweaks</strong> panel (bottom-right) to switch contrast, accent, font and dark/light — live.</p></div>
+					</div>
+
+					<hr />
+					<p>Related: <a class="internal">[[palette]]</a> · <a class="internal">[[install]]</a> · see also <a>morhetz/gruvbox</a>.</p>
+				</article>
+			</div>
+		</main>
+
+		<!-- right sidebar -->
+		<aside class="right">
+			<div class="right-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg> Outline</div>
+			<div class="outline">
+				<div class="ol-row active">On Gruvbox &amp; Cozy Reading</div>
+				<div class="ol-row">Why it feels warm</div>
+				<div class="ol-row lvl2">The reading checklist</div>
+				<div class="ol-row">Syntax highlighting</div>
+				<div class="ol-row">The palette at a glance</div>
+			</div>
+		</aside>
+	</div>
+
+	<!-- status bar -->
+	<div class="statusbar">
+		<span>312 words</span>
+		<span>1,847 characters</span>
+		<div class="sb-r">
+			<span class="ac">Gruvbox Cozy</span>
+			<span>Reading view</span>
+			<span>UTF-8</span>
+		</div>
+	</div>
+</div>
+
+<div id="tweaks-root"></div>
+
+<script>
+/* ---- file explorer data (vanilla, no framework) ---- */
+const tree = [
+	{ type:'folder', name:'Daily', open:true, children:[
+		{ type:'file', name:'2026-06-02' },
+		{ type:'file', name:'2026-06-01' },
+	]},
+	{ type:'folder', name:'Themes', open:true, children:[
+		{ type:'file', name:'retro-groove', active:true },
+		{ type:'file', name:'palette' },
+		{ type:'file', name:'install' },
+	]},
+	{ type:'folder', name:'Inbox', open:false, children:[
+		{ type:'file', name:'quick capture' },
+	]},
+	{ type:'file', name:'README' },
+];
+const ICON = {
+	folderOpen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l2-3h5l2 3h9v13H3z"/></svg>',
+	folder:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l2-3h5l2 3h9v13H3z"/></svg>',
+	file:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>',
+	twistOpen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg>',
+	twistClosed:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="9 6 15 12 9 18"/></svg>',
+};
+function renderNode(node){
+	if(node.type==='file'){
+		return `<div class="nav-row ${node.active?'active':''}"><span class="ico">${ICON.file}</span>${node.name}</div>`;
+	}
+	const kids = node.children.map(renderNode).join('');
+	return `<div class="nav-folder">
+		<div class="nav-row" data-folder="1"><span class="ico" style="width:15px">${node.open?ICON.twistOpen:ICON.twistClosed}</span>${node.name}</div>
+		${node.open?`<div class="nav-children">${kids}</div>`:''}
+	</div>`;
+}
+document.getElementById('nav').innerHTML = tree.map(renderNode).join('');
+</script>
+
+<!-- Obsidian surfaces: command palette, switcher, settings, graph, context menu -->
+<script src="overlays.js?v=3"></script>
+
+<!-- React + Babel for the Tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const GB_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "mode": "dark",
+  "contrast": "soft",
+  "accent": "orange",
+  "headings": true,
+  "font": "sans",
+  "leaf": true,
+  "leafOpacity": 0.025,
+  "dots": true,
+  "dotStrength": 5,
+  "quote": "♪ So much things to say ♪"
+}/*EDITMODE-END*/;
+
+function GruvboxTweaks() {
+	const [t, setTweak] = useTweaks(GB_DEFAULTS);
+	React.useEffect(() => {
+		const app = document.getElementById('gbApp');
+		app.dataset.mode = t.mode;
+		app.dataset.contrast = t.contrast;
+		app.dataset.accent = t.accent;
+		app.dataset.headings = t.headings ? 'on' : 'off';
+		app.dataset.font = t.font;
+		app.dataset.leaf = t.leaf ? 'on' : 'off';
+		app.style.setProperty('--leaf-opacity', String(t.leafOpacity));
+		const _q = document.getElementById('sbQuote'); if (_q) _q.textContent = t.quote;
+		app.style.setProperty('--dot-strength', (t.dots ? t.dotStrength : 0) + '%');
+	}, [t]);
+	return (
+		<TweaksPanel>
+			<TweakSection label="Mode" />
+			<TweakRadio label="Theme" value={t.mode} options={['dark','light']}
+				onChange={(v)=>setTweak('mode', v)} />
+			<TweakRadio label="Contrast" value={t.contrast} options={['soft','medium','hard']}
+				onChange={(v)=>setTweak('contrast', v)} />
+			<TweakSection label="Color" />
+			<TweakColor label="Accent" value={t.accent==='orange'?'#fe8019':t.accent==='yellow'?'#fabd2f':t.accent==='aqua'?'#8ec07c':t.accent==='blue'?'#83a598':t.accent==='purple'?'#d3869b':t.accent==='green'?'#b8bb26':'#fb4934'}
+				options={['#fe8019','#fabd2f','#8ec07c','#83a598','#d3869b','#b8bb26','#fb4934']}
+				onChange={(hex)=>{
+					const map={'#fe8019':'orange','#fabd2f':'yellow','#8ec07c':'aqua','#83a598':'blue','#d3869b':'purple','#b8bb26':'green','#fb4934':'red'};
+					setTweak('accent', map[hex]||'orange');
+				}} />
+			<TweakToggle label="Colored headings" value={t.headings}
+				onChange={(v)=>setTweak('headings', v)} />
+			<TweakSection label="Typography" />
+			<TweakRadio label="Reading font" value={t.font} options={['sans','serif','mono']}
+				onChange={(v)=>setTweak('font', v)} />
+			<TweakSection label="Sidebar maple leaf 🍁" />
+			<TweakToggle label="Show leaf" value={t.leaf}
+				onChange={(v)=>setTweak('leaf', v)} />
+			<TweakSlider label="Leaf opacity" value={t.leafOpacity} min={0} max={0.2} step={0.005}
+				onChange={(v)=>setTweak('leafOpacity', v)} />
+			<TweakText label="Sidebar quote" value={t.quote}
+				onChange={(v)=>setTweak('quote', v)} />
+			<TweakSection label="Note background" />
+			<TweakToggle label="Dot grid" value={t.dots}
+				onChange={(v)=>setTweak('dots', v)} />
+			<TweakSlider label="Dot strength" value={t.dotStrength} min={0} max={14} step={1} unit="%"
+				onChange={(v)=>setTweak('dotStrength', v)} />
+			<TweakSection label="Open a surface" />
+			<TweakButton label="⌘P  Command palette" onClick={()=>window.gbScene('palette')} />
+			<TweakButton label="⌘O  Quick switcher" onClick={()=>window.gbScene('switcher')} secondary />
+			<TweakButton label="⌘,  Settings" onClick={()=>window.gbScene('settings')} secondary />
+			<TweakButton label="⌘G  Graph view" onClick={()=>window.gbScene('graph')} secondary />
+		</TweaksPanel>
+	);
+}
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<GruvboxTweaks />);
+</script>
+</body>
+</html>
