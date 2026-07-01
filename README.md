@@ -6,7 +6,7 @@
 
 Built on Pavel Pertsev's beloved [Gruvbox](https://github.com/morhetz/gruvbox) palette — no pure black, no pure white, just warm browns and soft cream that stay easy on the eyes through long reading and writing sessions.
 
-![Gruvbox Cozy — dark mode](docs/screenshots/hero.png)
+![Gruvbox Cozy — dark mode](art/cosmic-wanderer-moonlit-cliff.png)
 
 </div>
 
@@ -24,7 +24,7 @@ Built on Pavel Pertsev's beloved [Gruvbox](https://github.com/morhetz/gruvbox) p
 - 🟤 **Dotted note background** — an optional, subtle dot-grid paper texture behind your notes
 - ✅ **Colored task states** — `/` `!` `?` `>` `-` checkboxes colored & labelled (works with the Tasks plugin)
 - ⚙️ **[Style Settings](https://github.com/mgmeyers/obsidian-style-settings) support** — change accent, font and more without touching code
-- 📐 Built entirely on Obsidian's stable CSS-variable system — tracks current releases (tested on **1.13.x**)
+- 📐 Built entirely on Obsidian's stable CSS-variable system — tracks current releases (tested on **1.6.x**)
 
 ## 🎚️ The three editions
 
