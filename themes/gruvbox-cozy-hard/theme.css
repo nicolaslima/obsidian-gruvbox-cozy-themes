@@ -383,6 +383,7 @@ body {
 	--tag-color: var(--gb-aqua);
 	--tag-background: color-mix(in srgb, var(--gb-aqua) 16%, transparent);
 	--tag-background-hover: color-mix(in srgb, var(--gb-aqua) 26%, transparent);
+	--tag-color-hover: var(--gb-fg0);
 
 	/* checkboxes */
 	--checkbox-color: var(--gb-accent);
@@ -440,9 +441,6 @@ body.gruvbox-italic-emphasis em { font-style: italic; }
    ============================================================ */
 .workspace-tab-header.is-active {
 	--tab-text-color-active: var(--gb-fg0);
-}
-.workspace-tab-header.is-active::after {
-	background: var(--gb-accent);
 }
 .nav-file-title.is-active,
 .nav-folder-title.is-active {
