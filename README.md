@@ -1,12 +1,12 @@
 <div align="center">
 
-# 🟫 Gruvbox Cozy
+# 🌿 Grovesidian
 
-### A warm, retro-groove theme for [Obsidian](https://obsidian.md)
+### A Gruvbox-flavored theme for [Obsidian](https://obsidian.md) — warm, retro-groove, and easy on the eyes
 
-Built on Pavel Pertsev's beloved [Gruvbox](https://github.com/morhetz/gruvbox) palette — no pure black, no pure white, just warm browns and soft cream that stay easy on the eyes through long reading and writing sessions.
+Built on Pavel Pertsev's beloved [Gruvbox](https://github.com/morhetz/gruvbox) palette — no pure black, no pure white, just warm browns and soft cream that stay easy on the eyes through long reading and writing sessions. A cozy grove for your notes.
 
-![Gruvbox Cozy — dark mode](art/cosmic-wanderer-moonlit-cliff.png)
+![Grovesidian — dark mode](art/cosmic-wanderer-moonlit-cliff.png)
 
 </div>
 
