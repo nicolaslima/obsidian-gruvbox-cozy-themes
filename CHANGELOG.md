@@ -3,6 +3,32 @@
 All notable changes to Gruvbox Cozy are documented here.
 This project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.1.0] — 2026-07-01
+
+### Added
+- Full `--color-*-rgb` variable support for callouts, canvas, and Obsidian's rgba() usage
+- `--caret-color`, `--text-on-accent-inverted`, `--text-error`, `--text-success`, `--text-warning`
+- `--background-modifier-message`, `--background-modifier-error-rgb`, `--background-modifier-success-rgb`
+- Complete **Properties (metadata)** styling — all `--metadata-*` variables
+- Complete **Canvas** plugin support — `--canvas-background`, `--canvas-card-label-color`, `--canvas-dot-pattern`, `--canvas-color-1` through `--canvas-color-6`
+- Complete **Navigation** variables — `--nav-item-*`, `--nav-indentation-*`, `--nav-collapse-*`, `--nav-heading-*`
+- Complete **Tabs** variables — `--tab-*` including stacked tab support
+- **Divider** variables — `--divider-color`, `--divider-width`, `--divider-vertical-height`
+- **Ribbon** variables — `--ribbon-background`, `--ribbon-width`, `--ribbon-padding`
+- **Titlebar** variables — `--titlebar-*`, `--header-height`
+- **Vault profile** variables — `--vault-profile-*`
+- **Embed** variables — `--embed-background`, `--embed-border-*`, `--embed-padding`, `--embed-font-style`
+- **Workspace** translucent background — `--workspace-background-translucent`
+- **Sidebar** variables — `--sidebar-markdown-font-size`, `--sidebar-tab-text-display`
+
+### Changed
+- Bumped `minAppVersion` to `1.6.0` for full compatibility with current Obsidian
+- Consolidated duplicate `--background-modifier-error`, `--text-error` etc. into the main `body` block
+- All three editions (Soft, Medium, Hard) now share the same complete variable set — only background tones differ
+
+### Removed
+- `uploads/` directory (contained corrupted/unusable file)
+
 ## [1.0.0] — 2026-06-03
 
 ### Added
